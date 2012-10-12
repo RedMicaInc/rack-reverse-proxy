@@ -73,12 +73,11 @@ reverse_proxy_options sets global options for all reverse proxies. Available opt
 * :timeout seconds to timout the requests
 
 === Modifying content when relaying back
-The gem allows you to update content as it flows back to browser.  This can be useful in certain cases.  For instance lets say you have an app plus a blog hosted on [Wordpress.com](http://Wordpress.com) or [tumblr](http://www.tumblr.com) that you want to serve in the URL namespace for your app.  But the pages coming from blog server will have URLs like xxx.wordpress.com/category/post which you rather be <your app URL>/blog/category/post.
+The gem allows you to update content as it flows back to browser.  This can be useful in certain cases.  For instance lets say you have an app plus a blog hosted on Wordpress.com or tumblr that you want to serve in the URL namespace for your app.  But the pages coming from blog server will have URLs like xxx.wordpress.com/category/post which you rather be <your app URL>/blog/category/post.
 You can do this by specifying a block to the reverse_proxy call.  The block gets passed in two parameters, body and headers.  You can use the header to determine if you want to modify content (for example if content-type is image you may want to skip it).  See example below
 
       # Forward the path /blogs* to http://redmica.wordpress.com/*
       reverse_proxy /^\/blogs(\/.*)$/, 'http://xxx.wordpress.com$1' do |body, headers|
-        p "#{headers.inspect}"
         body.gsub "http://xxx.wordpress.com", "/blogs" unless headers["Content-Type"].downcase["text/"].nil?
       end
 
