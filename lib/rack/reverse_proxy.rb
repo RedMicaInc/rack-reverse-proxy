@@ -168,7 +168,7 @@ module Rack
     end
 
     def post_process_body(body, headers)
-      @body_modifier.nil? ? body : @body_modifier.call(body, headers)
+      @body_modifier.nil? ? body : @body_modifier.call(body, headers, @options)
     end
 
     def to_s
