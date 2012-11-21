@@ -163,7 +163,8 @@ module Rack
         match_path(path).to_a.each_with_index { |m, i| _url.gsub!("$#{i.to_s}", m) }
         URI(_url)
       else
-        URI.join(_url, path)
+        #URI.join(_url, path)
+        URI(_url)
       end
     end
 
